@@ -5,9 +5,9 @@ import 'package:webview_flutter_android/webview_flutter_android.dart';
 // Import for iOS features.
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 
-
 class ViewModel extends StatefulWidget {
-  const ViewModel({super.key});
+  final String urlModel;
+  const ViewModel({super.key, required this.urlModel});
 
   @override
   State<ViewModel> createState() => _ViewModelState();
@@ -79,7 +79,7 @@ Page resource error:
           );
         },
       )
-      ..loadRequest(Uri.parse('https://sketchfab.com/models/955017e2b4784c5381fb0927e663298a/embed?autostart=1&internal=1&tracking=0&ui_infos=0&ui_snapshots=1&ui_stop=0&ui_watermark=0'));
+      ..loadRequest(Uri.parse(widget.urlModel));
 
     // #docregion platform_features
     if (controller.platform is AndroidWebViewController) {
@@ -94,11 +94,8 @@ Page resource error:
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.blue,
-      ),
-      body: WebViewWidget(controller: _controller),
+    return Container(
+      child: WebViewWidget(controller: _controller),
     );
   }
 }
